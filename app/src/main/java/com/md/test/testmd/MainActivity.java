@@ -128,38 +128,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        HttpRequest.sendPost("http://120.24.235.202:8080/QhWebNewsServer/api/main/new", "species=r", new HttpRevMsg() {
-            @Override
-            public void revMsg(final String msg) {
 
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            JSONObject obj = new JSONObject(msg);
-                            JSONObject joData = obj.getJSONObject("joData");
-
-
-                            JSONArray array = joData.getJSONArray("news");
-                            News news;
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject oj = array.getJSONObject(i);
-                                news = new News();
-                                news.setPurl(oj.optString("purl"));
-                                news.setTitle(oj.optString("title"));
-                                list.add(news);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-
-            }
-        });
     }
 
     private void initBaseUI() {
